@@ -6088,6 +6088,18 @@ components:
           minimum: 1
         bucketDefinition:
           $ref: '#/components/schemas/bucketDefinition'
+        subAggregations:
+          type: array
+          description: |
+            Nested aggregations computed within each bucket of this
+            aggregation. Libregraph extension not present in MS Graph.
+
+            Backends that don't support native composite aggregations
+            (e.g. bleve) emulate them by walking the matched result
+            set; OpenSearch translates them to native composite
+            aggregations.
+          items:
+            $ref: '#/components/schemas/aggregationOption'
     bucketDefinition:
       type: object
       description: |
@@ -6282,6 +6294,14 @@ components:
             part of the `aggregationFilters` property in a subsequent
             `searchRequest`, in the format
             `"{field}:\"{aggregationFilterToken}\""`.
+        subAggregations:
+          type: array
+          description: |
+            Nested aggregation results, one per sub-aggregation requested
+            on the parent `aggregationOption`. Libregraph extension not
+            present in MS Graph.
+          items:
+            $ref: '#/components/schemas/searchAggregation'
     odata.error:
       required:
         - error
